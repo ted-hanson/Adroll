@@ -6,18 +6,27 @@
 <body>
 <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 <script src="http://backbonejs.org/backbone.js"></script>
+<hr />
 <script>
 $( document ).ready( function() {
-        var setPicSize = function() {
-            var width = $(window).width(), height = $(window).height(), scaleFactor = 0.30
-            $('canvas').css('width', width*scaleFactor + "px");
-            $('canvas').css('height', height*scaleFactor + "px");
-        }
-        $(window).resize(function(){
-            setPicSize();
-        });
-        
+    var setPicSize = function() {
+        var width = $(window).width(), height = $(window).height(), scaleFactor = 0.31
+        $('canvas').css('width', width*scaleFactor + "px");
+        $('canvas').css('height', height*scaleFactor + "px");
+    }
+    $(window).resize(function(){
         setPicSize();
+    });
+    
+    $(window).scroll(function () { 
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            if (window.confirm("Load more pictures?")) {
+                alert("loading more");
+            }
+        }
+    });
+    
+    setPicSize();
 });
 </script>
 <table align="center">
@@ -40,6 +49,5 @@ for (var i = 0; i < size; i++) {
 </tr>
 </table>
 <hr />
-<button type="button" onclick="getMorePics()">load more</button>
 </body>
 </html>
