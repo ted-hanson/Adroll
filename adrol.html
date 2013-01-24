@@ -5,10 +5,26 @@
 </head>
 <body>
 <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-<script src="http://backbonejs.org/backbone.js"></script>
 <hr />
 <script>
+var pics = new Array(9)
 $( document ).ready( function() {
+    function httpRequest() {
+        var http;
+        if (window.XMLHttpRequest) { // code for IE7+, FF, Chrome, Opera, Safari
+            http=new XMLHttpRequest();
+        } else { // code for IE6, IE5
+            http=new ActiveXObject("Microsoft.XMLHTTP");
+            http.send();
+        }
+        var json = $.getJSON(
+            "http://api.dribbble.com/shots/everyone",
+            function(data) {
+                alert("Data Loaded: " + data);
+            }
+        );
+    }
+
     var setPicSize = function() {
         var width = $(window).width(), height = $(window).height(), scaleFactor = 0.31
         $('canvas').css('width', width*scaleFactor + "px");
@@ -21,11 +37,13 @@ $( document ).ready( function() {
     $(window).scroll(function () { 
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
             if (window.confirm("Load more pictures?")) {
-                alert("loading more");
+                $('html, body').animate({scrollTop:0}, 'slow');
+                httpRequest();
             }
         }
     });
     
+    httpRequest() 
     setPicSize();
 });
 </script>
@@ -37,10 +55,10 @@ for (var i = 0; i < size; i++) {
     if (i % 3 == 0) {
         document.write("</tr><tr>");
     }
-    document.write("<td><canvas id='myCanvas");
+    document.write("<td><canvas id='");
     document.write(i);
     document.write("' style='border:1px solid #c3c3c3;'></canvas></td>");
-    var c=document.getElementById("myCanvas"+i);
+    var c=document.getElementById(i);
     var ctx=c.getContext("2d");
     ctx.fillStyle="#FF0000";
     //ctx.fillRect(0,0,150,75);
