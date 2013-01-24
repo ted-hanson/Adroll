@@ -1,23 +1,26 @@
 <!DOCTYPE HTML>
+<html>
 <head>
 <title>Cool Pictures!</title>
 </head>
-<html>
 <body>
 <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 <script src="http://backbonejs.org/backbone.js"></script>
 <script>
 $( document ).ready( function() {
         var setPicSize = function() {
-            var scaleSource = $('body').width(), scaleFactor = 0.32
-            $('canvas').css('width', scaleSource*scaleFactor);
+            var width = $(window).width(), height = $(window).height(), scaleFactor = 0.30
+            $('canvas').css('width', width*scaleFactor + "px");
+            $('canvas').css('height', height*scaleFactor + "px");
         }
         $(window).resize(function(){
             setPicSize();
         });
+        
+        setPicSize();
 });
 </script>
-<table>
+<table align="center">
 <tr>
 <script>
 var size = 9
@@ -36,7 +39,7 @@ for (var i = 0; i < size; i++) {
 </script>
 </tr>
 </table>
-<p></p>
+<hr />
 <button type="button" onclick="getMorePics()">load more</button>
 </body>
 </html>
